@@ -24,6 +24,7 @@ const Home = () => {
   const dispatch = useDispatch();
   const onChangeCategory = (id) =>{
     dispatch(setCategoryId(id))
+
   };
 
   const countPizzas = useSelector(state => state.filterSlice.countPizzas);
