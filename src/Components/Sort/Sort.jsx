@@ -1,21 +1,30 @@
 import React from 'react'
+import {useDispatch, useSelector} from 'react-redux'
+import {setSortType} from '../../Redux/sliices/filterSlice'
 
-const Sort = ({value, setSortSelected}) => {
-  const [isVisible, setIsVisible] = React.useState(false)
-  const list = [
-    {name: 'популярности (Desc)', sort: 'rating'},
-    {name: 'популярности (Asc)', sort: '-rating'},
-    {name: 'цене (Desc)', sort: 'price'},
-    {name: 'цене (Asc)', sort: '-price'},
-    {name: 'алфавиту(Desc)', sort: 'title'},
-    {name: 'алфавиту(asc)', sort: '-title'}
-  ]
+export const list = [
+  {name: 'популярности (Desc)', sort: 'rating'},
+  {name: 'популярности (Asc)', sort: '-rating'},
+  {name: 'цене (Desc)', sort: 'price'},
+  {name: 'цене (Asc)', sort: '-price'},
+  {name: 'алфавиту(Desc)', sort: 'title'},
+  {name: 'алфавиту(asc)', sort: '-title'}
+];
 
-
-  const onClickListItem = (i) => {
-    setSortSelected(i)
-    setIsVisible(false)
+const Sort = () => {
+  const dispatch = useDispatch();
+  const sortType = useSelector(state => state.filterSlice.sortType)
+  const onChangeSort = (obj)=>{
+    dispatch(setSortType(obj))
+    setIsVisible(!isVisible)
   }
+
+
+  const [isVisible, setIsVisible] = React.useState(false)
+
+
+
+
 
   return (
     <div className="sort">
@@ -35,7 +44,7 @@ const Sort = ({value, setSortSelected}) => {
         <b>Сортировка по:</b>
         <span onClick={() => {
           setIsVisible(!isVisible)
-        }}>{value.name}</span>
+        }}>{sortType.name}</span>
       </div>
       {
         isVisible && (
@@ -44,9 +53,9 @@ const Sort = ({value, setSortSelected}) => {
               {list.map((obj, i) => (
                 <li key={i}
                     onClick={() => (
-                      onClickListItem(obj)
+                      onChangeSort(obj)
                     )}
-                    className={value.sort === obj.sort ? 'active' : ''}>
+                    className={sortType.sort === obj.sort ? 'active' : ''}>
                   {obj.name}
                 </li>
               ))}
