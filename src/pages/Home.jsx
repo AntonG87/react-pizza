@@ -4,103 +4,92 @@ import PizzaBlock from '.././Components/PizzaBlock/PizzaBlock'
 import React from 'react'
 import Skeleton from '.././Components/PizzaBlock/PizzaBlockSkeleton'
 import PaginationControlled from '../Components/Pagination/Paginate'
-import {SearchContext} from '../App'
 import {useDispatch, useSelector} from 'react-redux'
 import {
+  selectFilter,
   setCategoryId,
   setCountPizzas,
   setCurrentPage,
   setFilters
 } from '../Redux/sliices/filterSlice'
-import axios from 'axios'
 import qs from 'qs'
 import {useNavigate} from 'react-router'
+import {fetchPizzas} from '../Redux/sliices/pizzasSlice'
+
 
 const Home = () => {
+  const {limitPizzas,categoryId,searchValue,currentPage,countPizzas} = useSelector(selectFilter)
+  const sortType = useSelector(state => state.filterSlice.sortType.sort)
   const navigate = useNavigate()
   const isSearch = React.useRef(false);
   const isMounted = React.useRef(false);
-  const categoryId = useSelector(state => state.filterSlice.categoryId);
+
   const dispatch = useDispatch();
   const onChangeCategory = (id) =>{
     dispatch(setCategoryId(id))
-
   };
 
-  const countPizzas = useSelector(state => state.filterSlice.countPizzas);
   const onChangeCountPizzas = (value) => {
     dispatch(setCountPizzas(value));
   };
 
-  const limitPizzas = useSelector(state => state.filterSlice.limitPizzas);
   const pagesCount = Math.ceil(countPizzas / limitPizzas)
 
-  const currentPage =  useSelector(state => state.filterSlice.currentPage);
+  const {items,status} = useSelector(state =>state.pizzasSlice)
+
   const onChangeCurrentPage = (value)=>{
     dispatch(setCurrentPage(value))
   }
 
-  const sortType = useSelector((state) =>state.filterSlice.sortType.sort)
-
-  const {searchValue} = React.useContext(SearchContext);
-  const [items, setItems] = React.useState([])
-  const [isLoading, setIsLoading] = React.useState(true)
-
-
   const pizzas = items.filter(obj => {
-    return obj.title.toLowerCase().includes(searchValue.toLowerCase()) ? true : false
-  }).map((obj) => <PizzaBlock {...obj} key={obj.id}/>
-  )
-  const skeleton = [...new Array(items.length)].map((_, index) => (
+   return obj.title.toLowerCase().includes(searchValue.toLowerCase());
+  }).map((obj) => <PizzaBlock key={obj.id} {...obj}/> )
+
+  const skeleton = [...new Array(6)].map((_, index) => (
     <Skeleton key={index}/>))
 
-  const fetchPizzas = ()=>{
-    setIsLoading(true)
+  const getPizzas = async () => {
+    // Determines sorting order based on sortType
+    const order = sortType.includes('-') ? 'asc' : 'desc';
+    const sortBy = sortType.replace('-', '');
+    // Constructs the category query parameter if categoryId > 0
+    const category = categoryId > 0 ? `category=${categoryId}` : '';
 
+      dispatch(
+        fetchPizzas({
+          currentPage,
+          limitPizzas,
+          category,
+          sortBy,
+          order,
+        })
+      );
 
-    const order = sortType.includes('-') ? 'asc' : 'desc'
-    const sortBy = sortType.replace('-', '')
-    const category = categoryId > 0 ? `category=${categoryId}` : ''
-    axios
-      .get(`https://6794d4b2aad755a134ea88e6.mockapi.io/items?page=${currentPage}&limit=${limitPizzas}&${category}&sortBy=${sortBy}&order=${order}`)
-      .then((res)=>{
-        setItems(res.data)
-        setIsLoading(false)
+      // Updates the count of pizzas based on categoryId
+      switch (categoryId) {
+        case 0:
+          onChangeCountPizzas(12);
+          break;
+        case 1:
+          onChangeCountPizzas(6);
+          break;
+        case 2:
+          onChangeCountPizzas(1);
+          break;
+        case 3:
+          onChangeCountPizzas(1);
+          break;
+        case 4:
+          onChangeCountPizzas(2);
+          break;
+        case 5:
+          onChangeCountPizzas(2);
+          break;
+        default:
+          onChangeCountPizzas(12);
+      }// Sets loading state to false after fetching and updating state
+  };
 
-        switch (categoryId) {
-          case 0:
-            // для категории "Все"
-            onChangeCountPizzas(12)
-            break
-          case 1:
-            //
-            onChangeCountPizzas(6)
-            break
-          case 2:
-            //
-            onChangeCountPizzas(1)
-            break
-          case 3:
-            //
-            onChangeCountPizzas(1)
-            break
-          case 4:
-            //
-            onChangeCountPizzas(2)
-            break
-          case 5:
-            onChangeCountPizzas(2)
-            break
-          default:
-            onChangeCountPizzas(12)
-
-        }
-
-      })
-      .catch(error => {
-        console.error('Error fetching data:', error)
-      })
-  }
 
   React.useEffect(() => {
     onChangeCurrentPage(1);
@@ -117,11 +106,11 @@ const Home = () => {
      navigate(`?${queryString}`)
    }
     isMounted.current = true
-  },[categoryId, sortType, currentPage,])
+  },[categoryId, sortType, currentPage])
 
   React.useEffect(() => {
     if(!isSearch.current){
-      fetchPizzas();
+      getPizzas();
     }
     isSearch.current = false;
     window.scrollTo({
@@ -129,7 +118,7 @@ const Home = () => {
       left: 0,
       behavior: 'smooth' // Can be 'auto' or 'smooth'
     })
-  }, [categoryId, sortType, currentPage,])
+  }, [categoryId, sortType, currentPage])
 
   React.useEffect(()=>{
     if(window.location.search) {
@@ -141,6 +130,7 @@ const Home = () => {
           sortType
         }
       ))
+      getPizzas()
       isSearch.current = true
     }
   },[]);
@@ -154,9 +144,23 @@ const Home = () => {
           <Sort />
         </div>
         <h2 className="content__title">Все пиццы</h2>
-        <div className="content__items">
-          {isLoading ? skeleton : pizzas}
-        </div>
+        {
+          status === 'error'
+            ? (
+            <div>
+              <h2>
+                Ошибка загрузки данных
+              </h2>
+              <p>
+                Приносим свои извинения,сервис полностью не доступен!
+              </p>
+            </div>
+          )
+            : (<div className="content__items">
+              { status ==='loading' ? skeleton : pizzas}
+            </div>)
+        }
+
         {pagesCount > 1
           ? <PaginationControlled pagesCount={pagesCount}
                                   currentPage={currentPage}

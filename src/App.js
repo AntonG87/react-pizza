@@ -7,16 +7,13 @@ import Header from './Components/Header/Header'
 import Cart from './Components/Cart/Cart'
 import EmptyCart from './Components/EmptyCart/EmptyCard'
 import NotFound from './pages/NotFound'
+import FullPizza from './pages/FullPizza'
 
-export const SearchContext = React.createContext()
 
 function App() {
-   const [searchValue,setSearchValue] = React.useState('')
-
   return (
     <BrowserRouter>
       <div className="wrapper">
-        <SearchContext.Provider value={{searchValue, setSearchValue}}>
           <div className="content">
             <div className="container">
               <Header/>
@@ -24,11 +21,11 @@ function App() {
                 <Route path="/" element={<Home/>}/>
                 <Route path="/cart" element={<Cart/>}/>
                 <Route path="/empty-cart" element={<EmptyCart/>}/>
+                <Route path="/pizza/:id" element={<FullPizza/>}/>
                 <Route path="*" element={<NotFound/>}/>
               </Routes>
             </div>
           </div>
-        </SearchContext.Provider>
       </div>
     </BrowserRouter>
   )

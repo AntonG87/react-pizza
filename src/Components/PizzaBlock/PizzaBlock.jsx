@@ -1,21 +1,41 @@
 import React from 'react'
+import {useDispatch, useSelector} from 'react-redux'
+import {addProduct} from '../../Redux/sliices/cartSlice'
+import {Link} from 'react-router-dom'
 
-const PizzaBlock = ({ imageUrl, title, sizes, types, price }) => {
+const PizzaBlock = ({ imageUrl, title, sizes, types, price,id,}) => {
   // Проверка наличия типов и размеров, установка значений по умолчанию
   const [activeType, setActiveType] = React.useState(types && types.length > 0 ? types[0] : 0);
   const [activeSize, setActiveSize] = React.useState(0);
-
   const namesTypes = ['тонкое', 'традиционное'];
+  const sizesTypes = ['26cm','30cm','40cm']
+  const dispatch = useDispatch();
+
+  const cartItem = useSelector(state => state.cartSlice.items.find(obj=>obj.id ===id))
+  const addedCount = cartItem? cartItem.count : 0
+  const onClickAdd = ()=>{
+    const item = {
+      id,
+      title,
+      price,
+      imageUrl,
+      type: namesTypes[activeType],
+      size: sizesTypes[activeSize]
+    }
+    dispatch(addProduct(item))
+  }
 
   return (
     <div className="pizza-block">
       {/* Проверка наличия изображения */}
       {imageUrl ? (
-        <img
-          className="pizza-block__image"
-          src={imageUrl}
-          alt={title || 'Pizza'}
-        />
+        <Link to={'/pizza/'+id}>
+          <img
+            className="pizza-block__image"
+            src={imageUrl}
+            alt={title || 'Pizza'}
+          />
+        </Link>
       ) : (
         <div className="pizza-block__image-placeholder">Изображение не доступно</div>
       )}
@@ -59,7 +79,7 @@ const PizzaBlock = ({ imageUrl, title, sizes, types, price }) => {
 
       <div className="pizza-block__bottom">
         <div className="pizza-block__price">от {price} ₽</div>
-        <button className="button button--outline button--add">
+        <button onClick={onClickAdd} className="button button--outline button--add">
           <svg
             width="12"
             height="12"
@@ -73,7 +93,6 @@ const PizzaBlock = ({ imageUrl, title, sizes, types, price }) => {
             />
           </svg>
           <span>Добавить</span>
-          <i>0</i>
         </button>
       </div>
     </div>

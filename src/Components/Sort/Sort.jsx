@@ -1,33 +1,41 @@
-import React from 'react'
+import React, {useRef} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {setSortType} from '../../Redux/sliices/filterSlice'
 
 export const list = [
-  {name: 'популярности (Desc)', sort: 'rating'},
-  {name: 'популярности (Asc)', sort: '-rating'},
-  {name: 'цене (Desc)', sort: 'price'},
-  {name: 'цене (Asc)', sort: '-price'},
-  {name: 'алфавиту(Desc)', sort: 'title'},
-  {name: 'алфавиту(asc)', sort: '-title'}
+  { name: 'популярности (Desc)', sort: 'rating' },
+  { name: 'популярности (Asc)', sort: '-rating' },
+  { name: 'цене (Desc)', sort: 'price' },
+  { name: 'цене (Asc)', sort: '-price' },
+  { name: 'алфавиту(Desc)', sort: 'title' },
+  { name: 'алфавиту(asc)', sort: '-title' },
 ];
 
 const Sort = () => {
   const dispatch = useDispatch();
-  const sortType = useSelector(state => state.filterSlice.sortType)
-  const onChangeSort = (obj)=>{
-    dispatch(setSortType(obj))
-    setIsVisible(!isVisible)
-  }
+  const sortType = useSelector(state => state.filterSlice.sortType);
+  const [isVisible, setIsVisible] = React.useState(false);
+  const sortRef = useRef();
 
+  const onChangeSort = (obj) => {
+    dispatch(setSortType(obj));
+    setIsVisible(false);
+  };
 
-  const [isVisible, setIsVisible] = React.useState(false)
+  React.useEffect(() => {
+    const handleClickOutSide = (event) => {
+      const path = event.composedPath();
+      if (sortRef.current && !path.includes(sortRef.current)) {
+        setIsVisible(false);
+      }
+    };
+    document.body.addEventListener('click', handleClickOutSide);
 
-
-
-
+    return () => document.body.removeEventListener('click', handleClickOutSide);
+  }, []);
 
   return (
-    <div className="sort">
+    <div ref={sortRef} className="sort">
       <div className="sort__label">
         <svg
           width="10"
@@ -42,29 +50,27 @@ const Sort = () => {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span onClick={() => {
-          setIsVisible(!isVisible)
-        }}>{sortType.name}</span>
+        <span onClick={() => setIsVisible(prevState => !prevState)}>
+          {sortType?.name || 'Сортировка'}
+        </span>
       </div>
-      {
-        isVisible && (
-          <div className="sort__popup">
-            <ul>
-              {list.map((obj, i) => (
-                <li key={i}
-                    onClick={() => (
-                      onChangeSort(obj)
-                    )}
-                    className={sortType.sort === obj.sort ? 'active' : ''}>
-                  {obj.name}
-                </li>
-              ))}
-            </ul>
-          </div>
-        )
-      }
+      {isVisible && (
+        <div className="sort__popup">
+          <ul>
+            {list.map((obj, i) => (
+              <li
+                key={i}
+                onClick={() => onChangeSort(obj)}
+                className={sortType.sort === obj.sort ? 'active' : ''}
+              >
+                {obj.name}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
-  )
-}
+  );
+};
 
-export default Sort
+export default Sort;
