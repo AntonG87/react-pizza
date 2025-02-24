@@ -1,4 +1,5 @@
 import React, {useRef} from 'react'
+// @ts-ignore
 import styles from './Search.module.scss'
 import {useDispatch, useSelector} from 'react-redux'
 import {selectFilter, setSearchValue} from '../../Redux/sliices/filterSlice'
@@ -6,11 +7,12 @@ import {selectFilter, setSearchValue} from '../../Redux/sliices/filterSlice'
 const Search = () => {
   const dispatch = useDispatch();
   const { searchValue } = useSelector(selectFilter);
-  const inputRef = useRef(null); // Устанавливаем правильный реф
+  const inputRef = useRef<HTMLInputElement>(null); // Устанавливаем правильный реф
+
 
   const onClickClear = () => {
     dispatch(setSearchValue(''));  // Сбрасываем значение в Redux
-    inputRef.current.focus();      // Фокусируем инпут
+    inputRef.current?.focus();      // Фокусируем инпут
   };
 
   return (
@@ -28,7 +30,7 @@ const Search = () => {
       </svg>
 
       <input
-        onChange={(e) => {
+        onChange={(e:React.ChangeEvent<HTMLInputElement>) => {
           dispatch(setSearchValue(e.target.value)); // Отправка значения в Redux
         }}
         ref={inputRef}

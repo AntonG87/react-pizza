@@ -1,16 +1,55 @@
-import {createSlice} from '@reduxjs/toolkit'
+import {createSlice, PayloadAction} from '@reduxjs/toolkit'
+import {productTypes} from "../../Components/Cart/Cart";
 
-const initialState = {
+export type CartItem = {
+  id:string,
+  title:string,
+  price:number,
+  imageUrl:string,
+  type:string ,
+  size:string ,
+  count:number
+};
+
+interface CartSliceState{
+  totalPrice:number;
+  items:CartItem[];
+  addedPizzas:number;
+};
+
+interface payloadActionsCart {
+  id: string;
+  type: string;
+  size: string;
+}
+
+const initialState: CartSliceState = {
   totalPrice: 0,
-  items: [],
+  items: JSON.parse(localStorage.getItem('cartItems') || '[]'), // Загружаем корзину из localStorage
   addedPizzas:0,
+};
+
+
+const calculateCartTotal = (items: CartItem[]) => {
+  let totalPrice = 0;
+  let addedPizzas = 0;
+
+  items.forEach(item => {
+    totalPrice += item.price * item.count; // Умножаем цену на количество
+    addedPizzas += item.count; // Считаем общее количество товаров
+  });
+
+  return { totalPrice, addedPizzas };
 };
 
 export const cartSlice = createSlice({
   name: "cart",
-  initialState,
+  initialState: {
+    ...initialState,
+    ...calculateCartTotal(initialState.items),
+  },
   reducers: {
-    addProduct(state, action) {
+    addProduct(state, action:PayloadAction<productTypes>) {
       // Ищем в items, есть ли уже такая же пицца (с таким же id, type и size)
       const findItem = state.items.find(
         (obj) =>
@@ -22,6 +61,7 @@ export const cartSlice = createSlice({
       if (findItem) {
         findItem.count++; // Если нашли, просто увеличиваем count
       } else {
+        // @ts-ignore
         state.items.push({ ...action.payload, count: 1 }); // Если нет, добавляем как новый объект
       }
 
@@ -29,13 +69,11 @@ export const cartSlice = createSlice({
       state.addedPizzas = state.items.reduce((sum, obj) => obj.count + sum, 0);
       state.totalPrice = state.items.reduce((sum, obj) => obj.price * obj.count + sum, 0);
 
-      //Оповещаем пользователя о добавлении
-
+      //добавил в локал
+      localStorage.setItem('cartItems', JSON.stringify(state.items));
     },
-    deleteProducts(state, action) {
+    deleteProducts(state, action:PayloadAction<payloadActionsCart>) {
       // Оставляем в state.items только те элементы, которые НЕ совпадают с переданными данными
-      console.log(action.payload)
-      console.log(state.items)
       state.items = state.items.filter(
         (obj) =>
           !(obj.id === action.payload.id &&
@@ -46,9 +84,12 @@ export const cartSlice = createSlice({
       // Обновляем сумму цен и общее количество пицц
       state.totalPrice = state.items.reduce((sum, obj) => obj.price * obj.count + sum, 0);
       state.addedPizzas = state.items.reduce((sum, obj) => obj.count + sum, 0);
+
+      localStorage.setItem('cartItems', JSON.stringify(state.items));
+
     },
 
-    removeProduct(state, action) {
+    removeProduct(state, action:PayloadAction<payloadActionsCart>) {
       const findItem = state.items.find(
         (obj) =>
           obj.id === action.payload.id &&
@@ -56,7 +97,8 @@ export const cartSlice = createSlice({
           obj.size === action.payload.size
       );
 
-      if (findItem.count > 1) {
+      if (findItem) { // Проверяем, найден ли элемент
+        if (findItem.count > 1) {
           findItem.count--; // Уменьшаем количество на 1
         } else {
           state.items = state.items.filter(
@@ -64,22 +106,28 @@ export const cartSlice = createSlice({
               !(obj.id === action.payload.id &&
                 obj.type === action.payload.type &&
                 obj.size === action.payload.size)
-          );}
+          );
+        }
+      }
 
-      // Обновляем сумму цен и общее количество пицц
+    // Обновляем сумму цен и общее количество пицц
       state.totalPrice = state.items.reduce((sum, obj) => obj.price * obj.count + sum, 0);
       state.addedPizzas = state.items.reduce((sum, obj) => obj.count + sum, 0);
+
+      localStorage.setItem('cartItems', JSON.stringify(state.items));
     },
 
     clearItems(state) {
       state.items = [];
       state.totalPrice = 0;
       state.addedPizzas = 0;
+
+      localStorage.setItem('cartItems', JSON.stringify(state.items));
+
     },
   },
 });
 
-// Action creators are generated for each case reducer function
 export const {
   addProduct,
   removeProduct,

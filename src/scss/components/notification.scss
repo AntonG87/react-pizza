@@ -1,0 +1,29 @@
+/* Notification.scss */
+$notification-bg: rgb(255, 180, 0);
+$notification-color: white;
+$notification-padding: 10px 20px;
+$notification-radius: 5px;
+$notification-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+$notification-font-size: 16px;
+
+.notification {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: $notification-bg;
+  color: $notification-color;
+  padding: $notification-padding;
+  border-radius: $notification-radius;
+  font-size: $notification-font-size;
+  box-shadow: $notification-shadow;
+  opacity: 1;
+  transition: opacity 0.5s ease-out;
+
+  p {
+    margin: 0;
+  }
+
+  &.fade-out {
+    opacity: 0;
+  }
+}

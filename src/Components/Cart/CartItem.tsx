@@ -1,10 +1,29 @@
 import {Link} from 'react-router-dom'
 import {useSelector} from 'react-redux'
+import {RootState} from "../../Redux/store";
+import React from "react";
 
+type Item = {
+  id: string;
+  type: string;
+  size: string;
+  count: number;
+  price: number;
+  imageUrl: string;
+  title: string;
+};
 
-const CartItem = (props)=>{
-
-  const totalPizzas = useSelector((state) => state.cartSlice.addedPizzas);
+// Тип для пропсов компонента CartItem
+type CartItemProps = {
+  items: Item[];
+  onClickMinus: any;
+  onClickPlus: any;
+  removeProductCart: any;
+  cleanAllCart: any;
+  totalPrice: number;
+};
+const CartItem : React.FC <CartItemProps> = (props)=>{
+  const totalPizzas = useSelector((state: RootState) => state.cartSlice.addedPizzas);
 
   return(
     <div className="content">
@@ -53,7 +72,7 @@ const CartItem = (props)=>{
           <div className="content__items">
 
 
-            {props.items.map((obj) => (
+            {props.items.map((obj:Item) => (
               <div className="cart__item" >
                 <div className="cart__item-img">
                   <img
@@ -68,7 +87,7 @@ const CartItem = (props)=>{
                 </div>
                 <div className="cart__item-count">
                   <div
-                    onClick={() => props.onClickMinus(obj.id, obj.type, obj.size)}
+                    onClick={() => props.onClickMinus(obj)}
                     className="button button--outline button--circle cart__item-count-minus">
                     <svg width="10" height="10" viewBox="0 0 10 10" fill="none"
                          xmlns="http://www.w3.org/2000/svg">
@@ -83,7 +102,7 @@ const CartItem = (props)=>{
                   </div>
                   <b>{obj.count}</b>
                   <div
-                    onClick={() => props.onClickPlus(obj.id, obj.type, obj.size)}
+                    onClick={() => props.onClickPlus(obj)}
                     className="button button--outline button--circle cart__item-count-plus">
                     <svg width="10" height="10" viewBox="0 0 10 10" fill="none"
                          xmlns="http://www.w3.org/2000/svg">
@@ -101,7 +120,7 @@ const CartItem = (props)=>{
                   <b>{obj.price} ₽</b>
                 </div>
                 <div className="cart__item-remove"
-                     onClick={()=>props.removeProductCart(obj.id, obj.type, obj.size)}>
+                     onClick={()=>props.removeProductCart(obj)}>
                   <div className="button button--outline button--circle">
                     <svg width="10" height="10" viewBox="0 0 10 10" fill="none"
                          xmlns="http://www.w3.org/2000/svg">

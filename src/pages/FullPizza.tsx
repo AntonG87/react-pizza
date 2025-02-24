@@ -3,10 +3,20 @@ import React, {useEffect, useState} from 'react'
 import axios from 'axios'
 import {Link} from 'react-router-dom'
 
-const FullPizza = () => {
+const FullPizza: React.FC = () => {
   const { id } = useParams();
-  const [pizza, setPizza] = useState(null);
-  const [loading, setLoading] = useState(true); // Добавляем состояние для загрузки
+  const [pizza, setPizza] = useState<{
+    imageUrl: string;
+    title: string;
+    price: number;
+    desc: string;
+  }>({
+    imageUrl: '',
+    title: '',
+    price: 0,
+    desc: ''
+  });
+  const [loading, setLoading] = useState<boolean>(true); // Добавляем состояние для загрузки
 
   useEffect(() => {
     async function fetchPizza() {
@@ -24,7 +34,7 @@ const FullPizza = () => {
   }, [id]);
 
   if (loading) {
-    return <div>Loading...</div>; // Показываем сообщение о загрузке до получения данных
+    return <>Loading...</>; // Показываем сообщение о загрузке до получения данных
   }
 
   return (

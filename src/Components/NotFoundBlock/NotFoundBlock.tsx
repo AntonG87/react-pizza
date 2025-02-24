@@ -1,16 +1,15 @@
-import react from 'react'
-import emptyCart from '../../assets/img/error-404-found-glitch-effect_8024-4.avif'
+import React from 'react'
+import emptyCart
+    from '../../assets/img/error-404-found-glitch-effect_8024-4.avif'
 import {Link} from 'react-router-dom'
-import React from "react";
 
 
-const NotFoundBlock = (props) => {
-
+const NotFoundBlock : React.FC = () => {
     return (
         <div className="content">
             <div className="container container--cart">
                 <div className="cart cart--empty">
-                    <h2>Ничего не найдено <icon>😕</icon></h2>
+                    <h2>Ничего не найдено <span>😕</span></h2>
                     <p>
                         Вероятней всего, такой страницы не существует.
                         <br/>
