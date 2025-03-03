@@ -72,8 +72,9 @@ const CartItem : React.FC <CartItemProps> = (props)=>{
           <div className="content__items">
 
 
-            {props.items.map((obj:Item) => (
-              <div className="cart__item" >
+            {props.items.map((obj:Item ,index) => (
+              <div className="cart__item"
+                   key={index}>
                 <div className="cart__item-img">
                   <img
                     className="pizza-block__image"
