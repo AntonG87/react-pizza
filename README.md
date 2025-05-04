@@ -108,6 +108,7 @@ Review and manage selected items with real-time price calculation.
 
 > Make sure to place your screenshots in a `/screenshots` folder inside your project root or `/public` if you are using Create React App.
 </details>
+
 ---
 
 ## 📬 Contact
