@@ -92,7 +92,7 @@ Open `http://localhost:3000` to view it in the browser.
 ---
 
 ## 🖼 Screenshots
-
+<details>
 ### 🏠 Home Page  
 Browse all available burgers with filters and search functionality.
 ![image](https://github.com/user-attachments/assets/c75b66c8-3ea2-4f0b-ad97-482eac7b197d)
@@ -103,7 +103,7 @@ Review and manage selected items with real-time price calculation.
 ![image](https://github.com/user-attachments/assets/e8b9a49a-5128-4826-8eff-188019e8b010)
 
 > Make sure to place your screenshots in a `/screenshots` folder inside your project root or `/public` if you are using Create React App.
-
+</details>
 ---
 
 ## 📬 Contact
