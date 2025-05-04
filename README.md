@@ -39,14 +39,37 @@ This app was built as part of my journey in mastering modern frontend developmen
 
 ```
 src/
-├── components/       // UI components (BurgerBlock, Sort, Cart, etc.)
-├── pages/            // Home and Cart pages
-├── redux/            // Redux store and slices
-├── assets/           // Images and icons
-└── utils/            // Constants and helper functions
+├── assets/              # Static files (images, SVG icons)
+│   └── img/
+├── Components/          # Reusable UI components
+│   ├── Cart/
+│   ├── Categories/
+│   ├── EmptyCart/
+│   ├── Header/
+│   ├── NotFoundBlock/
+│   ├── Notification/
+│   ├── Pagination/
+│   ├── PizzaBlock/      # (Burger components, name kept for legacy reasons)
+│   ├── Search/
+│   └── Sort/
+├── ejs/                 # Server-side templates (for optional SSR)
+│   └── components/
+├── js/                  # Main entry point (app.js)
+├── pages/               # Application pages (using React Router)
+│   ├── FullPizza.tsx    # Burger details page
+│   ├── Home.tsx         # Main product listing
+│   └── NotFound.tsx     # 404 fallback page
+├── Redux/               # Redux store and slices
+│   ├── slices/
+│   └── store.ts
+├── scss/                # SCSS styling
+│   ├── components/
+│   ├── libs/
+│   ├── _variables.scss
+│   └── app.scss
+├── types/               # TypeScript types and declarations
+│   └── images.d.ts
 ```
-
----
 
 ## 💻 Getting Started
 
