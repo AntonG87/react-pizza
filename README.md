@@ -118,4 +118,4 @@ If you’d like to ask questions, provide feedback, or collaborate:
 
 **Anton Gruzdev**  
 📧 [your-email@example.com](mailto:evelsonanton@gmail.com)  
-🔗 [LinkedIn]([#](https://www.linkedin.com/in/evelson/)) | [Telegram](t.me/@evelsomwrs)
+🔗 [LinkedIn](https://www.linkedin.com/in/evelson/) | [Telegram](@evelsonwrs)
