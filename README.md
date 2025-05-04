@@ -99,7 +99,8 @@ Open `http://localhost:3000` to view it in the browser.
 ## 🏠 Home Page  
 Browse all available burgers with filters and search functionality.
 
-![image](https://github.com/user-attachments/assets/c75b66c8-3ea2-4f0b-ad97-482eac7b197d)
+![image](https://github.com/user-attachments/assets/754bb48a-b039-471c-a874-c5907cd7fdf8)
+
 
 ### 🛒 Cart Page  
 Review and manage selected items with real-time price calculation.
