@@ -91,10 +91,14 @@ Open `http://localhost:3000` to view it in the browser.
 
 ---
 
+
 ## 🖼 Screenshots
+
 <details>
-### 🏠 Home Page  
+
+## 🏠 Home Page  
 Browse all available burgers with filters and search functionality.
+
 ![image](https://github.com/user-attachments/assets/c75b66c8-3ea2-4f0b-ad97-482eac7b197d)
 
 ### 🛒 Cart Page  
