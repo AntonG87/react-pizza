@@ -117,5 +117,5 @@ Review and manage selected items with real-time price calculation.
 If you’d like to ask questions, provide feedback, or collaborate:
 
 **Anton Gruzdev**  
-📧 [your-email@example.com](mailto:evelsonanton@gmail.com)  
-🔗 [LinkedIn](https://www.linkedin.com/in/evelson/) | [Telegram](@evelsonwrs)
+📧 [Gmail](mailto:evelsonanton@gmail.com)  
+🔗 [LinkedIn](https://www.linkedin.com/in/evelson/) | [Telegram](https://t.me/evelsonwrs)
