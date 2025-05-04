@@ -1,7 +1,7 @@
-import {useParams} from 'react-router'
-import React, {useEffect, useState} from 'react'
-import axios from 'axios'
-import {Link} from 'react-router-dom'
+import { useParams } from 'react-router';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const FullPizza: React.FC = () => {
   const { id } = useParams();
@@ -16,7 +16,7 @@ const FullPizza: React.FC = () => {
     price: 0,
     desc: ''
   });
-  const [loading, setLoading] = useState<boolean>(true); // Добавляем состояние для загрузки
+  const [loading, setLoading] = useState<boolean>(true); // Add loading state
 
   useEffect(() => {
     async function fetchPizza() {
@@ -26,7 +26,7 @@ const FullPizza: React.FC = () => {
       } catch (err) {
         console.log('Error:', err);
       } finally {
-        setLoading(false); // После загрузки данных или ошибки, устанавливаем состояние загрузки в false
+        setLoading(false); // After data loads or on error, set loading to false
       }
     }
 
@@ -34,12 +34,12 @@ const FullPizza: React.FC = () => {
   }, [id]);
 
   if (loading) {
-    return <>Loading...</>; // Показываем сообщение о загрузке до получения данных
+    return <>Loading...</>; // Show loading message until data arrives
   }
 
   return (
-    <div  className="pizza-block">
-      {/* Проверка наличия изображения */}
+    <div className="pizza-block">
+      {/* Check for image existence */}
       {pizza.imageUrl ? (
         <img
           className="pizza-block__image"
@@ -47,18 +47,17 @@ const FullPizza: React.FC = () => {
           alt={pizza.title || 'Pizza'}
         />
       ) : (
-        <div className="pizza-block__image-placeholder">Изображение не доступно</div>
+        <div className="pizza-block__image-placeholder">Image not available</div>
       )}
 
-
-      <h4 className="pizza-block__title">{pizza.title || 'Название пиццы'}</h4>
+      <h4 className="pizza-block__title">{pizza.title || 'Pizza Name'}</h4>
       <p>{pizza.desc}</p>
 
       <div className="pizza-block__bottom">
-        <div className="pizza-block__price">от {pizza.price} ₽</div>
+        <div className="pizza-block__price">from {pizza.price} ₪</div>
         <Link to={'/'}>
           <div>
-            <h3 style={{ textDecoration: "underline" }}>Назад</h3>
+            <h3 style={{ textDecoration: 'underline' }}>Back</h3>
           </div>
         </Link>
       </div>

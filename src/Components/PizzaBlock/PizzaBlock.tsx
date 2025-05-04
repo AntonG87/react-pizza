@@ -28,8 +28,8 @@ const PizzaBlock: React.FC<PizzaBlockProps> = ({
   const [adjustedPrice, setAdjustedPrice] = useState<number>(price);
   const [notificationVisible, setNotificationVisible] = useState<boolean>(false);
 
-  const namesTypes = ['тонкое', 'традиционное'];
-  const sizesTypes = ['26cm', '30cm', '40cm'];
+  const namesTypes = ['Thin', 'Regular'];
+  const sizesTypes = ['200gr', '240gr', '320gr'];
   const dispatch = useDispatch();
 
   // Вычисление изменённой цены в зависимости от выбранного размера
@@ -71,10 +71,10 @@ const PizzaBlock: React.FC<PizzaBlockProps> = ({
           <img className="pizza-block__image" src={imageUrl} alt={title || 'Pizza'} />
         </Link>
       ) : (
-        <div className="pizza-block__image-placeholder">Изображение не доступно</div>
+        <div className="pizza-block__image-placeholder">Image not available</div>
       )}
 
-      <h4 className="pizza-block__title">{title || 'Название пиццы'}</h4>
+      <h4 className="pizza-block__title">{title || 'Pizza name'}</h4>
 
       <div className="pizza-block__selector">
         <ul>
@@ -85,11 +85,11 @@ const PizzaBlock: React.FC<PizzaBlockProps> = ({
                 className={activeType === type ? 'active' : ''}
                 onClick={() => setActiveType(type)}
               >
-                {namesTypes[type] || 'Неизвестный тип'}
+                {namesTypes[type] || 'Unknown type'}
               </li>
             ))
           ) : (
-            <li>Типы пиццы не доступны</li>
+            <li>Pizza types not available</li>
           )}
         </ul>
         <ul>
@@ -100,17 +100,17 @@ const PizzaBlock: React.FC<PizzaBlockProps> = ({
                 className={activeSize === index ? 'active' : ''}
                 onClick={() => setActiveSize(index)}
               >
-                {size} см
+                {size} gr
               </li>
             ))
           ) : (
-            <li>Размеры пиццы не доступны</li>
+            <li>Burger sizes not available</li>
           )}
         </ul>
       </div>
 
       <div className="pizza-block__bottom">
-        <div className="pizza-block__price">от {adjustedPrice} ₽</div>
+        <div className="pizza-block__price">от {adjustedPrice}  ₪ </div>
         <button onClick={onClickAdd} className="button button--outline button--add">
           <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
@@ -118,14 +118,14 @@ const PizzaBlock: React.FC<PizzaBlockProps> = ({
               fill="white"
             />
           </svg>
-          <span>Добавить</span>
+          <span >Add to cart</span>
         </button>
       </div>
 
       {/* Уведомление о добавлении товара в корзину */}
       {notificationVisible && (
         <Notification
-          message="Пицца добавлена в корзину!"
+          message="Burger added to cart!"
           onClose={() => setNotificationVisible(false)}
         />
       )}

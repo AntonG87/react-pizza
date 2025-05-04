@@ -23,6 +23,10 @@
 
   &__logo {
     display: flex;
+    @media(max-width: 750px){
+      margin-bottom: 30px;
+    }
+
 
     img {
       margin-right: 15px;

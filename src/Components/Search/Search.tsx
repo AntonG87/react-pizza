@@ -36,7 +36,7 @@ const Search = () => {
         ref={inputRef}
         value={searchValue}
         className={styles.input}
-        placeholder="Поиск pizza..."
+        placeholder="Search Burgers..."
       />
 
       {searchValue && (

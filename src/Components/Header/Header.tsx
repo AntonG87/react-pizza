@@ -1,5 +1,5 @@
 import React from 'react'
-import pizzaLogo from '../../assets/img/pizza-logo.svg'
+import BurgerLogo from '../../assets/img/burgerlogo.png'
 import {Link, useLocation} from 'react-router-dom'
 import {useSelector} from 'react-redux'
 import {RootState} from "../../Redux/store";
@@ -9,7 +9,7 @@ import Search from "../Search/Search";
 const Header : React.FC = () => {
   const location = useLocation()
   const {items,totalPrice} = useSelector((state: RootState) => state.cartSlice)
-  const totalPizzas = useSelector((state: RootState) => state.cartSlice.addedPizzas);
+  const totalBurgers = useSelector((state: RootState) => state.cartSlice.addedPizzas);
 
   React.useEffect(()=>{
     const json = JSON.stringify(items);
@@ -21,17 +21,17 @@ const Header : React.FC = () => {
       <div className="container">
         <Link to='/'>
           <div className="header__logo">
-            <img width="38" src={pizzaLogo} alt="Pizza logo"/>
+            <img width="55" src={BurgerLogo} alt="Burger Logo"/>
             <div>
-              <h1>React Pizza</h1>
-              <p>самая вкусная пицца во вселенной</p>
+              <h1>React Burger</h1>
+              <p>The best burgers in Israel</p>
             </div>
           </div>
         </Link>
         {location.pathname !== '/cart' && <Search />}
         <div className="header__cart">
           <Link to='/cart' className="button button--cart">
-            <span>{totalPrice} ₽</span>
+            <span>{totalPrice} ₪</span>
             <div className="button__delimiter"></div>
             <svg
               width="18"
@@ -60,7 +60,7 @@ const Header : React.FC = () => {
                 strokeWidth="1.8"
               />
             </svg>
-            <span>{totalPizzas}</span>
+            <span>{totalBurgers}</span>
           </Link>
         </div>
       </div>

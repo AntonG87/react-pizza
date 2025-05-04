@@ -145,16 +145,16 @@ const Home : React.FC = () => {
                       setCategoryId={onChangeCategory}/>
           <Sort />
         </div>
-        <h2 className="content__title">Все пиццы</h2>
+        <h2 className="content__title">All burgers</h2>
         {
           status === Status.ERROR
             ? (
             <div>
               <h2>
-                Ошибка загрузки данных
+                Error loading data
               </h2>
               <p>
-                Приносим свои извинения,сервис полностью не доступен!
+                We apologize, the service is completely unavailable!
               </p>
             </div>
           )
@@ -163,7 +163,7 @@ const Home : React.FC = () => {
                 pizzas.length === 0 ? (
                   <div className='not-found-pizza-block'>
                     <img className='notFoundJPG' alt='logo' src={notFoundJPG} />
-                    <p className='desc-not-found-pizza'>Нет совпадений по вашему запросу.</p>
+                    <p className='desc-not-found-pizza'>There are no matches for your request.</p>
                   </div>
                 ) : (
                   pizzas

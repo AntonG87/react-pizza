@@ -5,12 +5,11 @@ type CategoriesProps = {
   setCategoryId: (i: number) => void;
 };
 const categories = [
-  'Все',
-  'Мясные',
-  'Вегетарианская',
-  'Гриль',
-  'Острые',
-  'Закрытые'
+  'All',
+  'Meat',
+  'Vegetarian',
+  'Grill',
+  'Spicy',
 ];
 
 const Categories: React.FC<CategoriesProps> = React.memo(({ value, setCategoryId }) => {

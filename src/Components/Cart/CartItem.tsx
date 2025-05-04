@@ -46,7 +46,7 @@ const CartItem : React.FC <CartItemProps> = (props)=>{
                   stroke="white" strokeWidth="1.8" strokeLinecap="round"
                   strokeLinejoin="round"/>
               </svg>
-              Корзина
+              Cart
             </h2>
             <div className="cart__clear">
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
@@ -66,11 +66,10 @@ const CartItem : React.FC <CartItemProps> = (props)=>{
                       strokeLinejoin="round"/>
               </svg>
 
-              <span onClick={props.cleanAllCart}>Очистить корзину</span>
+              <span onClick={props.cleanAllCart}>Сlear Cart </span>
             </div>
           </div>
           <div className="content__items">
-
 
             {props.items.map((obj:Item ,index) => (
               <div className="cart__item"
@@ -84,7 +83,7 @@ const CartItem : React.FC <CartItemProps> = (props)=>{
                 </div>
                 <div className="cart__item-info">
                   <h3>{obj.title}</h3>
-                  <p>{obj.type + ' ' + 'тесто'+ ' , ' + obj.size}.</p>
+                  <p>{obj.type + ' dough, ' + obj.size}.</p>
                 </div>
                 <div className="cart__item-count">
                   <div
@@ -118,7 +117,7 @@ const CartItem : React.FC <CartItemProps> = (props)=>{
                   </div>
                 </div>
                 <div className="cart__item-price">
-                  <b>{obj.price} ₽</b>
+                  <b>{obj.price} ₪ </b>
                 </div>
                 <div className="cart__item-remove"
                      onClick={()=>props.removeProductCart(obj)}>
@@ -143,8 +142,8 @@ const CartItem : React.FC <CartItemProps> = (props)=>{
           </div>
           <div className="cart__bottom">
             <div className="cart__bottom-details">
-              <span> Всего пицц: <b>{totalPizzas} шт.</b> </span>
-              <span> Сумма заказа: <b>{props.totalPrice} ₽</b> </span>
+              <span> Total pizzas: <b>{totalPizzas} pcs</b> </span>
+              <span> Order total: <b>{props.totalPrice} ₪</b> </span>
             </div>
             <div className="cart__bottom-buttons">
               <Link to="/"
@@ -156,10 +155,10 @@ const CartItem : React.FC <CartItemProps> = (props)=>{
                         strokeLinejoin="round"/>
                 </svg>
 
-                <span>Вернуться назад</span>
+                <span>Go back</span>
               </Link>
               <div className="button pay-btn">
-                <span>Оплатить сейчас</span>
+                <span>Pay now</span>
               </div>
             </div>
           </div>

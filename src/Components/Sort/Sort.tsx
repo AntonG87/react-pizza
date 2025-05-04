@@ -16,12 +16,12 @@ export enum ListSortEnum{
 }
 
 export const list: ListType[] = [
-  { name: 'популярности (Desc)', sort: ListSortEnum.RATING_DESC },
-  { name: 'популярности (Asc)', sort: ListSortEnum.RATING_ASC },
-  { name: 'цене (Desc)', sort: ListSortEnum.PRICE_DESC },
-  { name: 'цене (Asc)', sort: ListSortEnum.PRICE_ASC },
-  { name: 'алфавиту(Desc)', sort: ListSortEnum.TITLE_DESC },
-  { name: 'алфавиту(asc)', sort: ListSortEnum.TITLE_ASC },
+  { name: 'Popularity (Desc)', sort: ListSortEnum.RATING_DESC },
+  { name: 'Popularity (Asc)', sort: ListSortEnum.RATING_ASC },
+  { name: 'Price (Desc)', sort: ListSortEnum.PRICE_DESC },
+  { name: 'Price (Asc)', sort: ListSortEnum.PRICE_ASC },
+  { name: 'Alphabet (Desc)', sort: ListSortEnum.TITLE_DESC },
+  { name: 'Alphabet (asc)', sort: ListSortEnum.TITLE_ASC },
 ];
 
 const Sort : React.FC = React.memo(
@@ -64,7 +64,7 @@ const Sort : React.FC = React.memo(
             fill="#2C2C2C"
           />
         </svg>
-        <b>Сортировка по:</b>
+        <b>Sort by:</b>
         <span onClick={() => setIsVisible(prevState => !prevState)}>
           {sortType?.name || 'Сортировка'}
         </span>
