@@ -95,13 +95,11 @@ Open `http://localhost:3000` to view it in the browser.
 
 ### 🏠 Home Page  
 Browse all available burgers with filters and search functionality.
-
-![Home Screenshot](./screenshots/home.png)
+![image](https://github.com/user-attachments/assets/c75b66c8-3ea2-4f0b-ad97-482eac7b197d)
 
 ### 🛒 Cart Page  
 Review and manage selected items with real-time price calculation.
-
-![Cart Screenshot](./screenshots/cart.png)
+![image](https://github.com/user-attachments/assets/c929a33b-7145-4290-937e-20e86b4a3716)
 
 > Make sure to place your screenshots in a `/screenshots` folder inside your project root or `/public` if you are using Create React App.
 
