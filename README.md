@@ -100,6 +100,7 @@ Browse all available burgers with filters and search functionality.
 ### 🛒 Cart Page  
 Review and manage selected items with real-time price calculation.
 ![image](https://github.com/user-attachments/assets/c929a33b-7145-4290-937e-20e86b4a3716)
+![image](https://github.com/user-attachments/assets/e8b9a49a-5128-4826-8eff-188019e8b010)
 
 > Make sure to place your screenshots in a `/screenshots` folder inside your project root or `/public` if you are using Create React App.
 
