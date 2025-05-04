@@ -2,8 +2,6 @@
 
 **React Burger** is a learning-oriented single-page application developed using React. This project simulates an online burger shop, allowing users to browse the catalog, choose patty sizes, apply filters, sort items, and manage a shopping cart.
 
-> 🛠 Originally started as a pizza store project, this app was later adapted to showcase **burgers**. Some variable names or constants may still refer to "pizza" — they now correspond to **burgers**.
-
 ---
 
 ## 🚀 Project Purpose
@@ -33,6 +31,7 @@ This app was built as part of my journey in mastering modern frontend developmen
 - Full-text search by burger name
 - Add to cart with visual counter and total cost
 - Clean and simple UI
+> 🛠 Originally started as a pizza store project, this app was later adapted to showcase **burgers**. Some variable names or constants may still refer to "pizza" — they now correspond to **burgers**.
 
 ---
 
